@@ -1,0 +1,147 @@
+$cBlack: black;
+$cWhite: white;
+
+@import 'mixin';
+
+body {
+    margin: 0 auto;
+}
+
+header {
+    height: 100px;
+    border-bottom: 1px solid $cBlack;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.mobile-menu-icon {
+    background-color: transparent;
+    border: none;
+    outline: none !important;
+    cursor: pointer;
+    margin-right: 15px;
+    
+
+    & > span {
+        background-color: $cBlack;
+        width: 35px;
+        height: 2px;
+        display: block;
+        margin-bottom: 9px;
+        transition: transform 0.7s;
+
+        &:last-child {
+            margin-bottom: 0;
+            height: 2.5px;
+        }
+    }
+}
+
+.menu-open {
+    background-color: $cBlack;
+    color: $cWhite;
+
+    & .mobile-menu-icon {
+        & > span {
+            background-color: $cWhite;
+
+            &:nth-child(1) {
+                transform: translateY(11px) rotate(135deg);
+            }
+            &:nth-child(2) {
+                transform: translateX(-18px) scaleX(0);
+            }
+            &:nth-child(3) {
+                transform: translateY(-11px) rotate(-135deg);
+            }
+        }
+    }
+}
+
+main {
+    height: cover;
+    width: 100%;
+    text-align: center;
+}
+
+#container {
+    position: relative;
+    height: 300px;
+    width: 100%;
+    background-color: teal;
+}
+
+.animate-title {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    opacity: 0;
+
+    &.inview {
+        opacity: 1;
+        
+        & .char {
+            display: inline-block;
+            
+            @include animation(
+                $name: kf-animate-chars,
+                $duration: 0.5s,
+                $timing-function: cubic-bazier(0.30, 1.57, 0.58, 1),
+                $fill-mode: both
+            );
+            
+            @for $i from 1 to 10 {
+                &:nth-child(#{$i}) {
+                    animation-delay: $i * 0.04s;
+                }
+            }
+        }
+    }
+}
+
+@keyframes kf-animate-chars {
+    0% {
+        opacity: 0;
+        transform: translateY(-50%);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+#imgs {
+    width: auto;
+    height: cover;
+    margin: 40px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
+
+    & img {
+        max-width: 600px;
+        height: 400px;
+        object-fit: cover;
+        margin-bottom: 10px;
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+
+}
+
+
+footer {
+    height: 100px;
+    width: auto;
+    border-top: 1px solid $cBlack;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
